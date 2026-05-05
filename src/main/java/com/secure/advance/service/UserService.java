@@ -1,6 +1,7 @@
 package com.secure.advance.service;
 
 import com.secure.advance.model.User;
+import com.secure.advance.model.UserPrincipal;
 import com.secure.advance.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService{
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepo repo;
@@ -20,5 +21,14 @@ public class UserService{
         return repo.findAll();
     }
 
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = repo.findByUsername(username);
+
+        if  (user == null) {
+            System.out.println("user not found");
+            throw new UsernameNotFoundException("user not found");
+        }
+        return new UserPrincipal(user);
+    }
 
 }
