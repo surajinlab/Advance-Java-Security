@@ -16,7 +16,7 @@ public class Employee {
             new Emp(2, "Geto", 24000)
     ));
 
-    @GetMapping("/home")
+    @GetMapping
     public String greeting(HttpServletRequest request) {
         return "Welcome to My Project : " + request.getSession().getId() ;
     }

@@ -8,7 +8,6 @@ public class AdvanceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AdvanceApplication.class, args);
-		System.out.println("Advance Security Mode!");
-
+		System.out.println("---ADVANCE SECURITY MODE---");
 	}
 }
