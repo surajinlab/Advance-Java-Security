@@ -40,18 +40,37 @@ public class SecurityConfig {
         //http.formLogin(Customizer.withDefaults());
     }
 
+//    @Bean
+//    public AuthenticationProvider authenticationProvider() {
+//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+//        provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
+//        provider.setUserDetailsService(userDetailsService);
+//
+//        return provider;
+//    }
+//
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration config) throws Exception {
+//        return config.getAuthenticationManager();
+//    }
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
-        provider.setUserDetailsService(userDetailsService);
+        DaoAuthenticationProvider provider =
+                new DaoAuthenticationProvider(userDetailsService);
 
+        provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
     @Bean
     public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(12);
     }
 
 
